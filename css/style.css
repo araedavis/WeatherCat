@@ -1,0 +1,122 @@
+.wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+@font-face {
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/272161/meteocons-webfont.woff') format('woff');
+  font-family: 'MeteoconsRegular';
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: 'MeteoconsRegular';
+  content: attr(data-icon);
+  font-size: 48px;
+}
+
+.header {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.main-content {
+
+  text-align: center;
+  font-family: 'Arvo', sans-serif;
+  color: #000000;
+}
+
+#currentDescription {
+  padding: 20px;
+}
+
+/*.header,
+#currentIcon,
+#currentTemp {
+  text-shadow: 4px 4px 8px #5CD6FF;
+} */
+
+.toggle {
+  display: inline-block;
+}
+
+button {
+  -webkit-transition: all 0.5s ease;
+  cursor: pointer;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease;
+}
+
+a {
+  -webkit-transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  background: #000000;
+  height: 35px;
+  width: 75px;
+  float: left;
+  border-radius: 15px;
+  text-indent: 10px;
+  line-height: 32px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+
+a button {
+  -webkit-transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  border: 0px;
+  background: #ffffff;
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin: 8px 8px;
+  border-radius: 15px
+}
+
+a {
+  background: #000000;
+  height: 35px;
+  width: 75px;
+  float: left;
+  border-radius: 15px;
+  text-indent: 10px;
+  line-height: 32px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+  padding-right: 10px;
+}
+
+.F button {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  border: 0px;
+  background: #ffffff;
+  float: right;
+  width: 20px;
+  height: 20px;
+  margin: 8px 8px;
+  border-radius: 15px;
+}
+
+/*partly-cloudy-night cat needs to be fixed. Different image or font needs adjustment */
