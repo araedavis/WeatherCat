@@ -24,14 +24,36 @@ var imgs = {
   'partly-cloudy-night': 'url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/272161/partlycloudynightcat.jpg)',
 };
 
-var forecastURL = 'https://api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/';
+var forecastURL = 'https://api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'; 
+
+function setUnits(){
+  var toggleControl =  $('#buttonone').attr('class');
+  var units = '';
+
+  if(toggleControl === 'F') {         //need to also change units in windspeed string. 
+    
+    units = 'us';                     //units change when variable changes, but toggle button isn't working. 
+  } else {                                //not sure if that's a scope problem with the functions vs document.ready
+    units = 'si';
+  };
+
+  return units;
+};
+
 
 function success(position){
+
+  var units = setUnits();
+  
   forecastURL += position.coords.latitude + ',';
-  forecastURL += position.coords.longitude
+  forecastURL += position.coords.longitude + '?units=' + units;
+  
   console.log(forecastURL);
   loadWeather();
 }
+
+
+//need to make the forecastURL change based on the toggle slide
 
 function loadWeather() {
   $.ajax({
@@ -40,6 +62,7 @@ function loadWeather() {
     jsonpCallbaack: 'jsonpCallback',
     contentType: 'application/json',
     dataType: 'jsonp',
+    exclude: 'hourly',
     success: function(json) {
       $('#currentTemp').html(json.currently.temperature + "&#8457"); //celcius for toggle val is &#8451
       $('#currentIcon').attr("data-icon", icons[json.currently.icon]);
@@ -74,22 +97,21 @@ function loadWeather() {
 
 $(document).ready(function() {
  navigator.geolocation.getCurrentPosition(success);
-
-  
+ 
   //toggle click
   $('#buttonone').click(function() {
     
     $(this).toggleClass('F');
 
+
     if ($("#buttonone").is('.F')) {
       $('span').html('&#8457');
     } else {
       $('span').html('&#8451');
-    }
+    };
+
   }); //end toggle click function
 }); //end document.ready
 
 //note: either adding the location or wrapping the ajax in the function slowed load time WAY down. Investigate a fix?
-//promises - make ajax hold off 
 
-//json.flags.units - for Celcius conversion?
