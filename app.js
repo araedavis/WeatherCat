@@ -24,14 +24,17 @@ var imgs = {
   'partly-cloudy-night': 'url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/272161/partlycloudynightcat.jpg)',
 };
 
-var forecastURL = 'https://api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'; 
+ var forecastURL = '';
 
+ var windUnits = 'miles';
+
+//forecastURL query changes based on the toggle slide
 function setUnits(){
   var toggleControl =  $('#buttonone').attr('class');
   var units = '';
 
   if(toggleControl === 'F') {         //need to also change units in windspeed string. 
-    
+
     units = 'us';                     //units change when variable changes, but toggle button isn't working. 
   } else {                                //not sure if that's a scope problem with the functions vs document.ready
     units = 'si';
@@ -44,6 +47,11 @@ function setUnits(){
 function success(position){
 
   var units = setUnits();
+
+ 
+  forecastURL = '';
+
+  forecastURL = 'https://api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'
   
   forecastURL += position.coords.latitude + ',';
   forecastURL += position.coords.longitude + '?units=' + units;
@@ -52,8 +60,6 @@ function success(position){
   loadWeather();
 }
 
-
-//need to make the forecastURL change based on the toggle slide
 
 function loadWeather() {
   $.ajax({
@@ -64,10 +70,10 @@ function loadWeather() {
     dataType: 'jsonp',
     exclude: 'hourly',
     success: function(json) {
-      $('#currentTemp').html(json.currently.temperature + "&#8457"); //celcius for toggle val is &#8451
+      $('#currentTemp').html(json.currently.temperature + "&#176"); 
       $('#currentIcon').attr("data-icon", icons[json.currently.icon]);
 
-      $('#currentDescription').html(json.currently.summary + ", wind speed of " + json.currently.windSpeed + " miles per hour.")
+      $('#currentDescription').html(json.currently.summary + ", wind speed of " + json.currently.windSpeed + " " + windUnits +" per hour.")
 
       $('.wrapper').css({
         'background': 'linear-gradient(#ffffff, transparent 30%), linear-gradient(0deg, #ffffff, transparent),' + imgs[json.currently.icon] + 'no-repeat center fixed'
@@ -97,18 +103,23 @@ function loadWeather() {
 
 $(document).ready(function() {
  navigator.geolocation.getCurrentPosition(success);
+
  
   //toggle click
   $('#buttonone').click(function() {
     
+
     $(this).toggleClass('F');
 
-
     if ($("#buttonone").is('.F')) {
+      windUnits = 'miles';
       $('span').html('&#8457');
     } else {
+      windUnits = 'kilometers';
       $('span').html('&#8451');
     };
+
+    navigator.geolocation.getCurrentPosition(success);
 
   }); //end toggle click function
 }); //end document.ready
