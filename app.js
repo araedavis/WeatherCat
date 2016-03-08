@@ -51,7 +51,7 @@ function success(position){
 
   forecastURL = '';
 
-  forecastURL = 'api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'
+  forecastURL = 'https://api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'
 
   forecastURL += position.coords.latitude + ',';
   forecastURL += position.coords.longitude + '?units=' + units;
