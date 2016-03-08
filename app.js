@@ -65,7 +65,7 @@ function loadWeather() {
   $.ajax({
 
     url:  forecastURL,
-    jsonpCallbaack: 'jsonpCallback',
+    jsonpCallback: 'jsonpCallback',
     contentType: 'application/json',
     dataType: 'jsonp',
     exclude: 'hourly',
