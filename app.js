@@ -67,7 +67,7 @@ function loadWeather() {
     url:  forecastURL,
     jsonpCallback: 'jsonpCallback',
     contentType: 'application/json',
-    dataType: 'jsonp',
+    dataType: 'json',
     exclude: 'hourly',
     success: function(json) {
       $('#currentTemp').html(json.currently.temperature + "&#176");
