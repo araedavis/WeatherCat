@@ -33,9 +33,9 @@ function setUnits(){
   var toggleControl =  $('#buttonone').attr('class');
   var units = '';
 
-  if(toggleControl === 'F') {         //need to also change units in windspeed string. 
+  if(toggleControl === 'F') {         //need to also change units in windspeed string.
 
-    units = 'us';                     //units change when variable changes, but toggle button isn't working. 
+    units = 'us';                     //units change when variable changes, but toggle button isn't working.
   } else {                                //not sure if that's a scope problem with the functions vs document.ready
     units = 'si';
   };
@@ -48,14 +48,14 @@ function success(position){
 
   var units = setUnits();
 
- 
+
   forecastURL = '';
 
-  forecastURL = 'https://api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'
-  
+  forecastURL = 'api.forecast.io/forecast/3b92d084eba98be94647fb144257ee75/'
+
   forecastURL += position.coords.latitude + ',';
   forecastURL += position.coords.longitude + '?units=' + units;
-  
+
   console.log(forecastURL);
   loadWeather();
 }
@@ -63,14 +63,14 @@ function success(position){
 
 function loadWeather() {
   $.ajax({
-   
+
     url:  forecastURL,
     jsonpCallbaack: 'jsonpCallback',
     contentType: 'application/json',
     dataType: 'jsonp',
     exclude: 'hourly',
     success: function(json) {
-      $('#currentTemp').html(json.currently.temperature + "&#176"); 
+      $('#currentTemp').html(json.currently.temperature + "&#176");
       $('#currentIcon').attr("data-icon", icons[json.currently.icon]);
 
       $('#currentDescription').html(json.currently.summary + ", wind speed of " + json.currently.windSpeed + " " + windUnits +" per hour.")
@@ -82,21 +82,21 @@ function loadWeather() {
       $('.wrapper').css({
         'background-size': 'cover'
       });
-      
+
       var currentIcon = $('#current-icon').attr('data-icon');
       if(currentIcon == 'I'){
         $('#main-content').css({
           'color' : 'fff'
         });
       };
-      
-    }, //end success 
+
+    }, //end success
 
     error: function(e) {
       console.log("Hmmm. Something's not right.");
-    } //end error 
-    
-    }); //end ajax request 
+    } //end error
+
+    }); //end ajax request
 }; //end loadWeather
 
 
@@ -104,10 +104,10 @@ function loadWeather() {
 $(document).ready(function() {
  navigator.geolocation.getCurrentPosition(success);
 
- 
+
   //toggle click
   $('#buttonone').click(function() {
-    
+
 
     $(this).toggleClass('F');
 
@@ -125,4 +125,3 @@ $(document).ready(function() {
 }); //end document.ready
 
 //note: either adding the location or wrapping the ajax in the function slowed load time WAY down. Investigate a fix?
-
